@@ -4,15 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioGroup;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.Title);
         singers = findViewById(R.id.Singers);
         year = findViewById(R.id.Year);
-        insert = findViewById(R.id.Insert);
-        Show = findViewById(R.id.showList);
+        insert = findViewById(R.id.update);
+        Show = findViewById(R.id.Delete);
         stars = findViewById(R.id.radioStars);
 
 
@@ -87,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                startActivity(intent);
             }
         });
+
+
+
 
 
 

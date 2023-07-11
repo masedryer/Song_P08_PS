@@ -106,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Song> getSong() {
-        ArrayList<Song> tasks = new ArrayList<Song>();
+        ArrayList<Song> SongList = new ArrayList<Song>();
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS,COLUMN_YEAR,COLUMN_STARS};
         Cursor cursor = db.query(TABLE_TASK, columns, null, null, null, null, null, null);
@@ -119,12 +119,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 int year = cursor.getInt(3);
                 int stars = cursor.getInt(4);
                 Song obj = new Song(id, title, singers,year,stars);
-                tasks.add(obj);
+                SongList.add(obj);
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
-        return tasks;
+        return SongList;
     }
 
 
