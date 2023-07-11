@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "song.db";
 
 
-    private static final String TABLE_TASK = "song";
+    private static final String TABLE_SONG = "song";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_SINGERS = "singers";
@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableSql = "CREATE TABLE " + TABLE_TASK +  "("
+        String createTableSql = "CREATE TABLE " + TABLE_SONG +  "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT,"
                 + COLUMN_SINGERS + " TEXT,"
@@ -48,10 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
             newVersion) {
 
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
-        // Create table(s) again
-        onCreate(db);
+        db.execSQL("ALTER TABLE " + TABLE_SONG + " ADD COLUMN  module_name TEXT ");
 
     }
     public void insertSong(String title, String singers, int year, int stars){
@@ -70,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         // Insert the row into the TABLE_TASK
-        db.insert(TABLE_TASK, null, values);
+        db.insert(TABLE_SONG, null, values);
         // Close the database connection
         db.close();
     }
@@ -83,7 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS,COLUMN_YEAR,COLUMN_STARS};
         // Run the query and get back the Cursor object
-        Cursor cursor = db.query(TABLE_TASK, columns, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_SONG, columns, null, null, null, null, null, null);
 
         // moveToFirst() moves to first row, null if no records
         if (cursor.moveToFirst()) {
@@ -109,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Song> SongList = new ArrayList<Song>();
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS,COLUMN_YEAR,COLUMN_STARS};
-        Cursor cursor = db.query(TABLE_TASK, columns, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_SONG, columns, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -125,6 +122,31 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return SongList;
+    }
+    public int updateSong(Song data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_TITLE, data.getTitle());
+        // Store the column name as key and the date as value
+        values.put(COLUMN_SINGERS, data.getSingers());
+        values.put(COLUMN_YEAR, data.getYear());
+        values.put(COLUMN_STARS,data.getStar());
+
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(data.get_id())};
+        int result = db.update(TABLE_SONG, values, condition, args);
+        db.close();
+        return result;
+    }
+
+    public int deleteSong(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(id)};
+        int result = db.delete(TABLE_SONG, condition, args);
+        db.close();
+        return result;
     }
 
 

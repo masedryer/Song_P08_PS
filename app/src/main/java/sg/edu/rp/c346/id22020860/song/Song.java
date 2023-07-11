@@ -47,5 +47,18 @@ public class Song implements Serializable {
         return _id + "\n" + title + "\n" + singers + "\n" + year + "\n" + stars;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setYear(int year) {
+        this.year = year;
+    }
+    public void setSingers(String singers) {
+        this.singers = singers;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
 }
 
