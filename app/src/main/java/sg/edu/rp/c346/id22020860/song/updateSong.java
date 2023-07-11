@@ -94,7 +94,14 @@ public class updateSong extends AppCompatActivity {
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(updateSong.this);
                 dbh.deleteSong(data.get_id());
-                Intent intent = new Intent(updateSong.this, MainActivity.class);
+                Intent intent = new Intent(updateSong.this, songDisplay.class);
+                startActivity(intent);
+            }
+        });
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(updateSong.this, songDisplay.class);
                 startActivity(intent);
             }
         });
