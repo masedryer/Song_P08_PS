@@ -18,7 +18,6 @@ public class songDisplay extends AppCompatActivity {
     ArrayList<Song> alSong;
     Button star5;
 
-    ArrayAdapter aaSong;
 
 
     @Override

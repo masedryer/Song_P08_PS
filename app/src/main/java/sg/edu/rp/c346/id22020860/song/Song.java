@@ -44,8 +44,13 @@ public class Song implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return _id + "\n" + title + "\n" + singers + "\n" + year + "\n" + stars;
+        String star = "";
+        for (int i = 0; i < stars; i++) {
+            star += "*";
+        }
+        return _id + "\n" + title + "\n" + singers + "\n" + year + "\n" + "Rating:" + star;
     }
+
 
     public void setTitle(String title) {
         this.title = title;
